@@ -11,11 +11,16 @@ import java.util.Map;
 
 @Slf4j
 public class HttpInterceptor extends HandlerInterceptorAdapter {
+    private static final String START_TIME = "requestStartTime";
+    private static final String END_TIME = "requestEndTime";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI().toString();
         Map parameterMap = request.getParameterMap();
         log.info("request start, url:{}, parameterMap:{}",url,JsonMapper.obj2String(parameterMap));
+        long start = System.currentTimeMillis();
+        request.setAttribute(START_TIME,start);
         return true;
     }
 
@@ -29,7 +34,8 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String url = request.getRequestURI().toString();
-        Map parameterMap = request.getParameterMap();
-        log.info("request exception, url:{}, parameterMap:{}",url,JsonMapper.obj2String(parameterMap));
+        long start = (long)request.getAttribute(START_TIME);
+        long end = System.currentTimeMillis();
+        log.info("request exception, url:{}, cost:{}",url,end - start);
     }
 }
