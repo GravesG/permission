@@ -21,6 +21,5 @@ public class TestVo {
     @Min(value = 0 ,message = "id不能小于0")
     private Integer id;
 
-    @NotEmpty
     private List<String> str;
 }
