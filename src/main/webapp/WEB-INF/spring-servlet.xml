@@ -11,12 +11,17 @@
     <!-- 启动注解驱动的Spring功能-->
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+        <bean class="com.mmall.common.HttpInterceptor" />
+    </mvc:interceptors>
 
     <!--启动包扫描功能-->
     <context:component-scan base-package="com.mmall.controller" />
     <context:component-scan base-package="com.mmall.service" />
 
     <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+
+    <bean class="com.mmall.common.ApplicationContextHelper" lazy-init="false"/>
 
     <!--添加异常处理bean-->
     <bean class="com.mmall.common.SpringExceptionResolver" />

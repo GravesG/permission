@@ -1,7 +1,10 @@
 package com.mmall.model;
 
+import lombok.Builder;
+
 import java.util.Date;
 
+@Builder
 public class SysDept {
     private Integer id;
 
