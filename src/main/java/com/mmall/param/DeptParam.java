@@ -19,7 +19,7 @@ public class DeptParam {
     @Length(max = 15, min = 2,message = "部门名称的长度在2-15个字之间")
     private String name;
 
-    private Integer parentId;
+    private Integer parentId = 0;
 
     @NotNull(message = "展示顺序不能为空")
     private Integer seq;
