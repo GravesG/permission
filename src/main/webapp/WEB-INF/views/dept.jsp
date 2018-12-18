@@ -242,6 +242,7 @@
         function bindDeptClick() {
 
             $(".dept-name").click(function(e) {
+                console.log(e)
                 e.preventDefault();
                 e.stopPropagation();
                 var deptId = $(this).attr("data-id");
