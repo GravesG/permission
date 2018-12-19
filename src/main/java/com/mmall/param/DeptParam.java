@@ -25,5 +25,5 @@ public class DeptParam {
     private Integer seq;
 
     @Length(message = "备注的长度需要在150个字以内")
-    private String remake;
+    private String remark;
 }

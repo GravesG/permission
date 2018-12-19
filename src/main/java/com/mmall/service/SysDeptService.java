@@ -28,7 +28,7 @@ public class SysDeptService {
         }
         //构造SysDept对象
         SysDept dept = SysDept.builder().parentId(param.getParentId()).name(param.getName())
-                .seq(param.getSeq()).remark(param.getRemake()).build();
+                .seq(param.getSeq()).remark(param.getRemark()).build();
         //set层级
         dept.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()),param.getParentId()));
         dept.setOperator("system");//TODO
@@ -49,7 +49,7 @@ public class SysDeptService {
             throw new ParamException("同一层级下存在相同名称的部门");
         }
         SysDept after = SysDept.builder().id(param.getId()).parentId(param.getParentId()).name(param.getName())
-                .seq(param.getSeq()).remark(param.getRemake()).build();
+                .seq(param.getSeq()).remark(param.getRemark()).build();
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
         after.setOperator("system-update");//TODO
         after.setOperateIp("127.0.0.1");//TODO

@@ -6,6 +6,7 @@ import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
 import com.mmall.param.UserParam;
 import com.mmall.util.BeanValidator;
+import com.mmall.util.MD5Util;
 import com.mmall.util.PasswordUtil;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,10 @@ public class SysUserService {
 
         //TODO
         password = "123456";
+        String encryptedPassword = MD5Util.encrypt(password);
 
         SysUser user = SysUser.builder().username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
-                .password(password).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
+                .password(encryptedPassword).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
         user.setOperator("system");//TODO
         user.setOperateIp("127.0.0.1");//TODO
         user.setOperateTime(new Date());
@@ -62,5 +64,9 @@ public class SysUserService {
 
     public boolean checkTelephoneExist(String telephone,Integer userId){
         return false;
+    }
+
+    public SysUser findByKeyword(String keyword){
+        return null;
     }
 }
