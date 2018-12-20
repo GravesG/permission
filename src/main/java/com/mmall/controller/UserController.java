@@ -16,10 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
     @Resource
     private SysUserService sysUserService;
+
+    @RequestMapping("/logout.page")
+    public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        request.getSession().invalidate();
+        String path = "signin.jsp";
+        response.sendRedirect(path);
+    }
 
     @RequestMapping("/login.page")
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -47,6 +53,7 @@ public class UserController {
                 response.sendRedirect(ret);
             }else{
                 response.sendRedirect("/admin/index.page"); //TODO
+                return;
             }
         }
 
@@ -58,5 +65,6 @@ public class UserController {
         }
         String path = "signin.jsp";
         request.getRequestDispatcher(path).forward(request,response);
+        return;
     }
 }

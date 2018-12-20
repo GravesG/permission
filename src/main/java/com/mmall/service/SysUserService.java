@@ -1,6 +1,8 @@
 package com.mmall.service;
 
 import com.google.common.base.Preconditions;
+import com.mmall.beans.PageQuery;
+import com.mmall.beans.PageResult;
 import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SysUserService {
@@ -59,14 +62,25 @@ public class SysUserService {
         sysUserMapper.updateByPrimaryKeySelective(after);
     }
     public boolean checkEmailExist(String mail,Integer userId){
-        return false;
+        return sysUserMapper.countByMail(mail,userId) > 0;
     }
 
     public boolean checkTelephoneExist(String telephone,Integer userId){
-        return false;
+        return sysUserMapper.countByTelephone(telephone,userId) > 0;
     }
 
     public SysUser findByKeyword(String keyword){
-        return null;
+        return sysUserMapper.findByKeyword(keyword);
+    }
+
+    public PageResult<SysUser> getPageByDeptId(int deptId, PageQuery page){
+        BeanValidator.check(page);
+        //查询部门下总人数
+        int count = sysUserMapper.countByDeptId(deptId);
+        if(count > 0){
+            List<SysUser> list = sysUserMapper.getPageByDeptId(deptId,page);
+            return PageResult.<SysUser>builder().total(count).data(list).build();
+        }
+        return PageResult.<SysUser>builder().build();
     }
 }

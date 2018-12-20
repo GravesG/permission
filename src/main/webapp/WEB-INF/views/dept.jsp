@@ -3,6 +3,7 @@
 <head>
     <title>部门管理</title>
     <jsp:include page="/common/backend_common.jsp"/>
+    <jsp:include page="/common/page.jsp" />
 </head>
 <body class="no-skin" youdao="bind" style="background: white">
 <input id="gritter-light" checked="" type="checkbox" class="ace ace-switch ace-switch-5"/>
@@ -169,7 +170,7 @@
 </ol>
 </script>
 
-<%--<script id="userListTemplate" type="x-tmpl-mustache">
+<script id="userListTemplate" type="x-tmpl-mustache">
 {{#userList}}
 <tr role="row" class="user-name odd" data-id="{{id}}"><!--even -->
     <td><a href="#" class="user-edit" data-id="{{id}}">{{username}}</a></td>
@@ -189,7 +190,7 @@
     </td>
 </tr>
 {{/userList}}
-</script>--%>
+</script>
 
 <script type="application/javascript">
     $(function() {
@@ -321,10 +322,10 @@
             currentDept.addClass("btn-yellow");
             currentDept.addClass("no-hover");
             lastClickDeptId = deptId;
-            //loadUserList(deptId);
+            loadUserList(deptId);
         }
 
-        /*function loadUserList(deptId) {
+        function loadUserList(deptId) {
             var pageSize = $("#pageSize").val();
             var url = "/sys/user/page.json?deptId=" + deptId;
             var pageNo = $("#userPage .pageNo").val() || 1;
@@ -338,9 +339,9 @@
                     renderUserListAndPage(result, url);
                 }
             })
-        }*/
+        }
 
-        /*function renderUserListAndPage(result, url) {
+        function renderUserListAndPage(result, url) {
             if (result.ret) {
                 if (result.data.total > 0){
                     var rendered = Mustache.render(userListTemplate, {
@@ -378,9 +379,10 @@
             } else {
                 showMessage("获取部门下用户列表", result.msg, false);
             }
-        }*/
+            render(template, view, partials)
+        }
 
-        /*$(".user-add").click(function() {
+        $(".user-add").click(function() {
             $("#dialog-user-form").dialog({
                 model: true,
                 title: "新增用户",
@@ -406,9 +408,9 @@
                     }
                 }
             });
-        });*/
+        });
 
-        /*function bindUserClick() {
+        function bindUserClick() {
             $(".user-acl").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -468,7 +470,7 @@
                     }
                 });
             });
-        }*/
+        }
 
         $(".dept-add").click(function() {
             $("#dialog-dept-form").dialog({
@@ -518,7 +520,7 @@
             }
         }
 
-        /*function updateUser(isCreate, successCallback, failCallback) {
+        function updateUser(isCreate, successCallback, failCallback) {
             $.ajax({
                 url: isCreate ? "/sys/user/save.json" : "/sys/user/update.json",
                 data: $("#userForm").serializeArray(),
@@ -536,7 +538,7 @@
                     }
                 }
             })
-        }*/
+        }
 
         function updateDept(isCreate, successCallback, failCallback) {
             $.ajax({
