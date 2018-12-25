@@ -36,9 +36,9 @@
     Mustache.parse(paginateTemplate);
     
     function renderPage(url, total, pageNo, pageSize, currentSize, idElement, callback) {
-        var maxPageNo = Math.ceil(total / pageSize);
-        var paramStartChar = url.indexOf("?") > 0 ? "&" : "?";
-        var from = (pageNo - 1) * pageSize + 1;
+        var maxPageNo = Math.ceil(total / pageSize); //向上取整
+        var paramStartChar = url.indexOf("?") > 0 ? "&" : "?"; //判断url有没有参数，如果又参数（以？结尾）怎在后面拼加&，否则拼加&
+        var from = (pageNo - 1) * pageSize + 1;  //第几页从那个数据开始
         var view = {
             from: from > total ? total : from,
             to: (from + currentSize - 1) > total ? total : (from + currentSize - 1),
@@ -54,9 +54,11 @@
         };
         $("#" + idElement).html(Mustache.render(paginateTemplate, view));
 
-        $(".page-action").click(function(e) {
-            e.preventDefault();
+        $(".page-action").click(function(e) {   //帮定元素点击事件
+            e.preventDefault();  //拦截默认事件
             $("#" + idElement + " .pageNo").val($(this).attr("data-target"));
+
+            //--------------------------------下面没搞懂-----------------------------------------------------------------
             var targetUrl  = $(this).attr("data-url");
             if(targetUrl != '') {
                 $.ajax({
