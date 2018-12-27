@@ -11,10 +11,10 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
     <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime" />
-    <result column="operate_id" jdbcType="VARCHAR" property="operateId" />
+    <result column="operate_ip" jdbcType="VARCHAR" property="operateIp" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, parent_id, level, seq, status, remark, operator, operate_time, operate_id
+    id, name, parent_id, level, seq, status, remark, operator, operate_time, operate_ip
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,11 +30,11 @@
     insert into sys_acl_module (id, name, parent_id, 
       level, seq, status, 
       remark, operator, operate_time, 
-      operate_id)
+      operate_ip)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{level,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
-      #{operateId,jdbcType=VARCHAR})
+      #{operateIp,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmall.model.SysAclModule">
     insert into sys_acl_module
@@ -66,8 +66,8 @@
       <if test="operateTime != null">
         operate_time,
       </if>
-      <if test="operateId != null">
-        operate_id,
+      <if test="operateIp != null">
+        operate_ip,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -98,8 +98,8 @@
       <if test="operateTime != null">
         #{operateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="operateId != null">
-        #{operateId,jdbcType=VARCHAR},
+      <if test="operateIp != null">
+        #{operateIp,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -130,8 +130,8 @@
       <if test="operateTime != null">
         operate_time = #{operateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="operateId != null">
-        operate_id = #{operateId,jdbcType=VARCHAR},
+      <if test="operateIp != null">
+        operate_ip = #{operateIp,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -146,7 +146,40 @@
       remark = #{remark,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
       operate_time = #{operateTime,jdbcType=TIMESTAMP},
-      operate_id = #{operateId,jdbcType=VARCHAR}
+      operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getChildAclModuleListByLevel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_acl_module
+    WHERE level like #{level} || '.%'
+  </select>
+
+  <update id="batchUpdateLevel" parameterType="map">
+    <foreach collection="sysAclModuleList" item="sysAclModule" separator=";">
+      UPDATE sys_acl_module
+      SET level = #{sysAclModule.level}
+      WHERE id = #{sysAclModule.id}
+    </foreach>
+  </update>
+
+  <select id="countByNameAndParentId" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM sys_acl_module
+    WHERE name = #{name}
+    <if test="parentId != null">
+      AND parent_id = #{parentId}
+    </if>
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+
+  <select id="getAllAclModule" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List" />
+      from sys_acl_module
+  </select>
 </mapper>

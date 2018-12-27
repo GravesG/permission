@@ -145,6 +145,13 @@
         from sys_dept
     </select>
 
+    <select id="getChildDeptListByLevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_dept
+        WHERE level like #{level} || '.%'
+    </select>
+
     <update id="batchUpdateLevel" parameterType="map">
       <foreach collection="sysDeptList" item="sysDept" separator=";">
           UPDATE sys_dept

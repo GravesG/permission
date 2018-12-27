@@ -1,7 +1,14 @@
 package com.mmall.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysAclModule {
     private Integer id;
 
@@ -21,7 +28,7 @@ public class SysAclModule {
 
     private Date operateTime;
 
-    private String operateId;
+    private String operateIp;
 
     public Integer getId() {
         return id;
@@ -95,11 +102,11 @@ public class SysAclModule {
         this.operateTime = operateTime;
     }
 
-    public String getOperateId() {
-        return operateId;
+    public String getOperateIp() {
+        return operateIp;
     }
 
-    public void setOperateId(String operateId) {
-        this.operateId = operateId == null ? null : operateId.trim();
+    public void setOperateIp(String operateIp) {
+        this.operateIp = operateIp;
     }
 }
