@@ -19,7 +19,10 @@ public interface SysAclMapper {
 
     int updateByPrimaryKey(SysAcl record);
 
-    int countByAclModuleId(@Param("aclModule") int aclModule);
+    int countByAclModuleId(@Param("aclModuleId") int aclModuleId);
 
-    List<SysAcl> getPageByAclModuleId(@Param("aclModule") int aclModule, @Param("page") PageQuery page);
+    List<SysAcl> getPageByAclModuleId(@Param("aclModuleId") int aclModuleId, @Param("page") PageQuery page);
+
+    int countByNameAndAclModuleId(@Param("aclModuleId") int aclModuleId,@Param("name") String name,@Param("id") Integer id);
+
 }

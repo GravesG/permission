@@ -7,6 +7,7 @@ import com.mmall.service.SysDeptService;
 import com.mmall.service.SysTreeService;
 import com.mmall.util.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

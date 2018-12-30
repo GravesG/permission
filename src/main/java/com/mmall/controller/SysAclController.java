@@ -3,6 +3,7 @@ package com.mmall.controller;
 import com.mmall.beans.PageQuery;
 import com.mmall.common.JsonData;
 import com.mmall.param.AclModuleParam;
+import com.mmall.param.AclParam;
 import com.mmall.service.SysAclService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -21,19 +22,21 @@ public class SysAclController {
 
     @RequestMapping("/save.json")
     @ResponseBody
-    public JsonData saveAclModule(AclModuleParam param){
+    public JsonData saveAclModule(AclParam param){
+        sysAclService.save(param);
         return JsonData.success();
     }
 
     @RequestMapping("/update.json")
     @ResponseBody
-    public JsonData updateAclModule(AclModuleParam param){
+    public JsonData updateAclModule(AclParam param){
+        sysAclService.update(param);
         return JsonData.success();
     }
 
-    @RequestMapping("/list.json")
+    @RequestMapping("/page.json")
     @ResponseBody
     public JsonData list(@Param("aclModuleId") Integer aclModuleId, PageQuery pageQuery){
-
+        return JsonData.success(sysAclService.getPageByAclModule(aclModuleId,pageQuery));
     }
 }
