@@ -29,6 +29,10 @@ public class SysTreeService {
     @Resource
     private SysAclModuleMapper sysAclModuleMapper;
 
+    public List<AclModuleLevelDto> roleTree(int roleId){
+
+    }
+
     public List<AclModuleLevelDto> aclModuleTree(){
         List<SysAclModule> aclModuleList = sysAclModuleMapper.getAllAclModule();
         List<AclModuleLevelDto> dtoList = Lists.newArrayList();
