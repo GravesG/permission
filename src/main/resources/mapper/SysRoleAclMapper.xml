@@ -103,4 +103,13 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAclIdListByRoleIdList" parameterType="map" resultType="int">
+    SELECT acl_id
+    FROM sys_role_acl
+    WHERE
+    <foreach collection="roleIdList" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
+    </foreach>
+  </select>
 </mapper>
