@@ -199,4 +199,17 @@
     limit #{page.offset}, #{page.pageSize}
   </select>
 
+  <select id="getAll" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" />
+    FROM sys_acl
+  </select>
+
+  <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM sys_acl
+    WHERE id in
+      <foreach collection="idList" item="id" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+  </select>
 </mapper>
