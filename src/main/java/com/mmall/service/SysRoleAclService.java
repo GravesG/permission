@@ -33,6 +33,7 @@ public class SysRoleAclService {
                 return;
             }
         }
+        updateRoleAcls(roled,aclIdList);
     }
 
     @Transactional

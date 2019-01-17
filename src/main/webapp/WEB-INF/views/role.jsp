@@ -305,7 +305,6 @@
                     var hasChecked = false;
                     if (aclModule.aclList && aclModule.aclList.length > 0) {
                         $(aclModule.aclList).each(function(i, acl) {
-                            console.log(acl.name + !acl.hasAcl)
                             zTreeObj.push({
                                 id: aclPrefix + acl.id,
                                 pId: modulePrefix + acl.aclModuleId,

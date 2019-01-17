@@ -41,7 +41,7 @@ public class SysCoreService {
     public List<SysAcl> getUserAclList(int userId){
         //如果当前用户是超级管理员
         if(isSuperAdmin()){
-            sysAclMapper.getAll();
+            return sysAclMapper.getAll();
         }
         //否则取出当前用户所拥有的角色
         List<Integer> userRoleIdList = sysRoleUserMapper.getRoleIdListByUserId(userId);
