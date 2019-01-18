@@ -59,4 +59,8 @@ public class SysCoreService {
     public boolean isSuperAdmin(){
         return true;
     }
+
+    public boolean hasUrlAcl(String url) {
+        return false;
+    }
 }
