@@ -9,11 +9,13 @@ import com.mmall.param.UserParam;
 import com.mmall.service.SysRoleService;
 import com.mmall.service.SysTreeService;
 import com.mmall.service.SysUserService;
+import com.sun.tracing.dtrace.ModuleAttributes;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -28,6 +30,12 @@ public class SysUserController {
     private SysTreeService sysTreeService;
     @Resource
     private SysRoleService sysRoleService;
+
+    @RequestMapping("/noAuth.page")
+    @ResponseBody
+    public ModelAndView noAuth(){
+        return new ModelAndView("noAuth");
+    }
 
     @RequestMapping("/save.json")
     @ResponseBody

@@ -34,7 +34,7 @@ public class JsonMapper {
     }
 
     //将String转Object
-    public static <T> T String2Obj(String src, TypeReference<T> typeReference){
+    /*public static <T> T String2Obj(String src, TypeReference<T> typeReference){
         if(src == null || typeReference == null){
             return null;
         }
@@ -42,6 +42,18 @@ public class JsonMapper {
             return (T)((typeReference.getType()).equals(String.class) ? src : objectMapper.readValue(src,typeReference));
         }catch (Exception e){
             log.error("parse String to object exception, String:{},TypeReference<T>{},error{}",src,typeReference,e);
+            return null;
+        }
+    }*/
+
+    public static <T> T string2Obj(String src, TypeReference<T> typeReference) {
+        if (src == null || typeReference == null) {
+            return null;
+        }
+        try {
+            return (T) (typeReference.getType().equals(String.class) ? src : objectMapper.readValue(src, typeReference));
+        } catch (Exception e) {
+            log.warn("parse String to Object exception, String:{}, TypeReference<T>:{}, error:{}", src, typeReference.getType(), e);
             return null;
         }
     }
