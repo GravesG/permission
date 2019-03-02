@@ -188,7 +188,7 @@ public class SysTreeService {
             }
         });
 
-        //对当前层做树形结构的处理
+        //对当前层做树形结构的处理（这里的目的是给每一层的DTO添加上deptList及下层数据）
         transformDeptTree(deptLevelList,LevelUtil.ROOT,levelDeptMap);
         return rootList;
     }
@@ -198,7 +198,7 @@ public class SysTreeService {
         for (int i = 0; i < deptLevelList.size() ; i++) {
             //遍历该层的每个元素
             DeptLevelDto deptLevelDto = deptLevelList.get(i);
-            //处理当前层级的数据
+            //处理当前层级的数据（下一层的层级就是当前层的level+当前层的id）
             String nextLevel = LevelUtil.calculateLevel(level,deptLevelDto.getId());
             //处理下一层
             List<DeptLevelDto> tempDeptList = (List<DeptLevelDto>)levelDeptMap.get(nextLevel);

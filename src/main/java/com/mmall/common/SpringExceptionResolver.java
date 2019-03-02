@@ -33,6 +33,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
             log.error("unknown page exception, url:" + url, ex);
             JsonData result = JsonData.fail(defaultMsg);
             mv = new ModelAndView("exception", result.toMap());
+            //这里要创建一个exception的页面
         } else {
             log.error("unknow exception, url:" + url, ex);
             JsonData result = JsonData.fail(defaultMsg);

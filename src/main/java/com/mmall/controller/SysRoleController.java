@@ -94,6 +94,7 @@ public class SysRoleController {
 
         Set<Integer> selectedUserIdSet = selectedUserList.stream().map(sysUser -> sysUser.getId()).collect(Collectors.toSet());
         for (SysUser sysUser : allUserList) {
+            //查询那些状态正常但是不在被选用户中得数据
             if(sysUser.getStatus() == 1 && !selectedUserIdSet.contains(sysUser.getId())){
                 unselectedUserList.add(sysUser);
             }

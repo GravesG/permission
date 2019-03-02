@@ -17,7 +17,7 @@ public class SysCacheService {
     private RedisPool redisPool;
 
     public void saveCache(String toSaveValue, int timeoutSeconds, CacheKeyConstants prefix){
-
+        saveCache(toSaveValue, timeoutSeconds, prefix, null);
     }
 
     public void saveCache(String toSaveValue, int timeoutSeconds, CacheKeyConstants prefix, String... keys){

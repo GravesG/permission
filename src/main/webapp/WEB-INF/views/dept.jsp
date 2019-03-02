@@ -380,7 +380,7 @@
             } else {
                 showMessage("获取部门下用户列表", result.msg, false);
             }
-            render(template, view, partials)
+            //render(template, view, partials)
         }
 
         $(".user-add").click(function() {

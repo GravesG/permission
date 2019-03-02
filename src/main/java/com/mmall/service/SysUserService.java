@@ -1,6 +1,7 @@
 package com.mmall.service;
 
 import com.google.common.base.Preconditions;
+import com.mmall.beans.Mail;
 import com.mmall.beans.PageQuery;
 import com.mmall.beans.PageResult;
 import com.mmall.common.RequestHolder;
@@ -8,20 +9,21 @@ import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
 import com.mmall.param.UserParam;
-import com.mmall.util.BeanValidator;
-import com.mmall.util.IpUtil;
-import com.mmall.util.MD5Util;
-import com.mmall.util.PasswordUtil;
+import com.mmall.util.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
+    @Resource
+    private SysLogService sysLogService;
 
     public void save(UserParam param){
         BeanValidator.check(param);
@@ -44,7 +46,15 @@ public class SysUserService {
         user.setOperateTime(new Date());
 
         //TODO: sendEmail
+        /*Set<String> receivers = new HashSet<>();
+        receivers.add("2834162605@qq.com");
+        Mail mail = new Mail();
+        mail.setMessage("别学了");
+        mail.setReceivers(receivers);
+        mail.setSubject("别学了");
+        MailUtil.send(mail);*/
         sysUserMapper.insertSelective(user);
+        sysLogService.saveUserLog(null, user);
     }
 
 
@@ -64,6 +74,7 @@ public class SysUserService {
         after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveUserLog(before,after);
     }
     public boolean checkEmailExist(String mail,Integer userId){
         return sysUserMapper.countByMail(mail,userId) > 0;
@@ -73,6 +84,7 @@ public class SysUserService {
         return sysUserMapper.countByTelephone(telephone,userId) > 0;
     }
 
+    //电话邮箱有一个匹配就行（在页面登陆是调用）
     public SysUser findByKeyword(String keyword){
         return sysUserMapper.findByKeyword(keyword);
     }

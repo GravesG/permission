@@ -12,11 +12,11 @@ public class MailUtil {
     public static boolean send(Mail mail) {
 
         // TODO
-        String from = "";
+        String from = "18870224341@163.com";
         int port = 25;
-        String host = "";
-        String pass = "";
-        String nickname = "";
+        String host = "smtp.163.com";
+        String pass = "guo19961108";
+        String nickname = "Graves";
 
         HtmlEmail email = new HtmlEmail();
         try {
@@ -31,7 +31,7 @@ public class MailUtil {
             email.setSubject(mail.getSubject());
             email.setMsg(mail.getMessage());
             email.send();
-            log.info("{} 发送邮件到 {}", from, StringUtils.join(mail.getReceivers(), ","));
+            log.info("{} 发送邮件到 {} 成功", from, StringUtils.join(mail.getReceivers(), ","));
             return true;
         } catch (EmailException e) {
             log.error(from + "发送邮件到" + StringUtils.join(mail.getReceivers(), ",") + "失败", e);

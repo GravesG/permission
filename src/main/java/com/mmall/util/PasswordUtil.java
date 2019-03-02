@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class PasswordUtil {
+    //排除了难以区别的字段
     public final static String[] word = {
             "a", "b", "c", "d", "e", "f", "g",
             "h", "j", "k", "m", "n",
@@ -23,8 +24,10 @@ public class PasswordUtil {
         StringBuffer stringBuffer = new StringBuffer();
         Random random = new Random(new Date().getTime());
         boolean flag = false;
+        //获取一个8到10位的密码
         int length = random.nextInt(3) + 8;
         for (int i = 0; i < length; i++) {
+            //数字与字母间隔
             if (flag) {
                 stringBuffer.append(num[random.nextInt(num.length)]);
             } else {
